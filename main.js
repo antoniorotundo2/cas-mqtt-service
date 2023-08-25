@@ -5,13 +5,15 @@ const mongoose = require('mongoose');
 const SensorModel = require('./models/sensor');
 const ReadModel = require('./models/read');
 
-mongoose.connect('mongodb://localhost:27017/cas-db')
+mongoose.connect('mongodb://cas-db:27017/cas-db')
   .then(() => {
     console.log('connection successful to DB');
     client.on('connect', function () {
       client.subscribe('cas/sensor', function (err) {
         if (!err) {
           console.log('successful subscription');
+        } else {
+          console.error(err);
         }
       })
     })

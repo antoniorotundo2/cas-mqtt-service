@@ -10,7 +10,7 @@ WORKDIR /home/cas-user/
 RUN touch ~/.bashrc && chmod +x ~/.bashrc
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 ENV NVM_DIR /home/cas-user/.nvm
-RUN . $NVM_DIR/nvm.sh && nvm install --lts
+RUN . $NVM_DIR/nvm.sh && nvm install 18.14.2
 ENV NODE_PATH $NVM_DIR/v18.14.2/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v18.14.2/bin:$PATH
 COPY . .
