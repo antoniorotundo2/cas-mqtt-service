@@ -1,15 +1,16 @@
+const CONFIG = require('./config.json');
 const mqtt = require('mqtt');
 const Sensor = require('./modules/sensor');
-const client = mqtt.connect('mqtt://broker.hivemq.com:1883');
+const client = mqtt.connect(CONFIG["mqtt-broker"]);
 const mongoose = require('mongoose');
 const SensorModel = require('./models/sensor');
 const ReadModel = require('./models/read');
 
-mongoose.connect('mongodb://cas-db:27017/cas-db')
+mongoose.connect(CONFIG["mongodb-url"])
   .then(() => {
     console.log('connection successful to DB');
     client.on('connect', function () {
-      client.subscribe('cas/sensor', function (err) {
+      client.subscribe(CONFIG["mqtt-topic"], function (err) {
         if (!err) {
           console.log('successful subscription');
         } else {
